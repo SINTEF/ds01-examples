@@ -1,0 +1,26 @@
+#!/bin/bash
+#SBATCH --output /home/volkerh/logs/slurm/ollama_serve_%j.out
+#SBATCH --job-name ollama/serve
+#SBATCH --partition sintef
+#SBATCH --ntasks 1
+#SBATCH --mem=2GB
+#SBATCH --cpus-per-task=1
+#SBATCH --gres gpu:a30:1
+#SBATCH --time 00-01:00:00
+
+echo ""
+echo "***** LAUNCHING *****"
+date '+%F %H:%M:%S'
+echo ""
+
+export OLLAMA_HOST=127.0.0.1:31337
+
+# DATE=$(date +%F_%H%M)
+# srun ollama serve > "/home/volkerh/logs/ollama/ollama_serve_${SLURM_JOB_ID}_${DATE}.log" 2>&1
+
+srun ollama serve 2>&1
+
+echo ""
+echo "***** DONE *****"
+date '+%F %H:%M:%S'
+echo ""
