@@ -1,0 +1,41 @@
+#!/bin/bash
+#SBATCH --output /home/volkerh/logs/slurm/tf_%j.out
+#SBATCH --job-name tf
+#SBATCH --partition sintef
+#SBATCH --ntasks 1
+#SBATCH --mem=1GB
+#SBATCH --cpus-per-task=1
+#XSBATCH --gres gpu:a30:1
+#SBATCH --time 00-00:05:00
+
+# switch to the correct conda environment
+. "/etc/profile.d/conda.sh"
+conda activate tf
+
+# set output directory
+outdir=/tmp
+
+# set path to your script
+script=/home/volkerh/src/ds01-examples/python/tensorflow_device.py
+
+# make tensorflow less greedy
+export TF_FORCE_GPU_ALLOW_GROWTH=true
+
+echo ""
+echo "***** LAUNCHING *****"
+date '+%F %H:%M:%S'
+echo ""
+
+# run like this if you to log into the slurm log
+# cd ${outdir}
+# srun python -u ${script} 2>&1
+
+# run like this if you want to log into a custom logfile
+cd ${outdir}
+DATE=$(date +%F_%H%M)
+srun python -u ${script} > ${outdir}/run_${SLURM_JOB_ID}_${DATE}.log 2>&1
+
+echo ""
+echo "***** DONE *****"
+date '+%F %H:%M:%S'
+echo ""
