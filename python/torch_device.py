@@ -2,7 +2,7 @@
 Prints whether you have access to a CUDA device with PyTorch.
 
 Quickstart:
-$ mamba ceate --name pytorch python=3.11
+$ mamba create --name pytorch python=3.11
 $ mamba activate pytorch
 $ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
 

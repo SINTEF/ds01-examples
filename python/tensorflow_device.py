@@ -2,7 +2,7 @@
 Prints whether you have access to a CUDA device with Tensorflow.
 
 Quickstart:
-$ mamba ceate --name tf python=3.11
+$ mamba create --name tf python=3.11
 $ mamba activate tf
 $ pip install tensorflow
 
